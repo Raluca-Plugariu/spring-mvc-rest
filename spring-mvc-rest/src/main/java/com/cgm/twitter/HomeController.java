@@ -29,14 +29,16 @@ import com.cgm.dto.Response;
 public class HomeController {
 
 	public static ArrayList<Message> messages = UserBuilder.allMessages;
-
+	public static ArrayList<Message> userMessages = UserBuilder.userMessages;
+	public static ArrayList<User> allUsers = UserBuilder.allUsers;
+	public static ArrayList<User> userFriends = UserBuilder.userFriends;
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView getMessages(@ModelAttribute("userMessages") Message message, ModelMap model) {
 		model.put("postMessage", UserBuilder.aMessage());
 		model.put("messages", messages);
 		
-		model.put("userMessage", UserBuilder.userMessages);
+		model.put("userMessage", userMessages);
 
 		return new ModelAndView("home", "userMessages", UserBuilder.aMessage());
 	}
@@ -45,7 +47,7 @@ public class HomeController {
 
 	public @ResponseBody Message postMessages(@RequestBody Message message, HttpServletRequest request) {
 
-		messages.add(message);
+		userMessages.add(message);
 
 		// Create Response Object
 		System.out.println("salll");
@@ -73,6 +75,55 @@ public class HomeController {
 		}
 		return new ModelAndView("search", "user", username + " notfound");
 	}
+	
+	
+	
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET, produces = "application/json")
+
+	public @ResponseBody ArrayList<User> getUser( HttpServletRequest request) {
+		return allUsers;
+	}
+	
+	@RequestMapping(value = "/getFriends", method = RequestMethod.GET, produces = "application/json")
+
+	public @ResponseBody ArrayList<User> getFriends( HttpServletRequest request) {
+		return userFriends;
+	}
+	
+	@RequestMapping(value = "/friends", method = RequestMethod.GET)
+
+	public ModelAndView getFriend( HttpServletRequest request) {
+		return new ModelAndView("friends");
+	}
+	
+	@RequestMapping(value = "/friends/{username}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView followUser(@PathVariable String username, ModelMap model) {
+		for (User u : allUsers) {
+			if (u.getUsername().equals(username)) {
+				int flag = 1;
+				for(int counter = 0; counter<userFriends.size(); counter++) {
+					if(username.equals(userFriends.get(counter).getUsername()))
+						flag = 0;
+				}
+				if(flag==1) {
+				userFriends.add(u);
+				return new ModelAndView("friends");
+				}
+		}}
+		return new ModelAndView("/friends");
+	}
+	@RequestMapping(value = "/friends/unfollow/{username}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView unfollowUser(@PathVariable String username, ModelMap model) {
+		for (User u : userFriends) {
+			if (u.getUsername().equals(username)) {
+				userFriends.remove(u);
+				return new ModelAndView("friends");
+		}}
+		return new ModelAndView("friends");
+	}
+	
 	
 	
 

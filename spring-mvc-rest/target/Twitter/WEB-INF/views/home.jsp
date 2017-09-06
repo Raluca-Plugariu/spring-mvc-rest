@@ -51,23 +51,22 @@ input, button {
 	<ul>
 		<li><a class="active" href="/twitter/home">Home</a></li>
 		<li><a class="active" href="/twitter/search">Search</a></li>
-		<li><a class="active" href="/controller/friends">Friends</a></li>
+		<li><a class="active" href="/twitter/friends">Friends</a></li>
 		<li><a href="#about">About</a></li>
 	</ul>
 
 	<div class="padding_container">Hello, Raluca Plugariu!</div>
 	<br></br>
 	<div class="padding">Write a post here</div>
-	<form id="postMessageForm" modelAttribute="userMessages"
-		action="home">
+
 
 		<div class="wrapper">
-			<input path="content" style="width: 150px;" name="content" id="content"
+			<input style="width: 150px;" name="content" id="content"
 				value="" />
 			<button type="submit" id="postBtn" class="btn btn-primary">Post!</button>
 		</div>
 		<div id="result"></div>
-	</form>
+	
 	<br></br>
 	<br></br>
 	<div class="mess">Your friends posts</div>

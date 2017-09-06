@@ -96,7 +96,7 @@ input, button {
 <ul>
 		<li><a class="active" href="/twitter/home">Home</a></li>
 		<li><a class="active" href="/twitter/search">Search</a></li>
-		<li><a class="active" href="/controller/friends">Friends</a></li>
+		<li><a class="active" href="/twitter/friends">Friends</a></li>
 		<li><a href="#about">About</a></li>
 	</ul>
 <div class="wrap">

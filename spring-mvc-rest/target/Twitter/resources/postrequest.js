@@ -14,17 +14,17 @@ $( document ).ready(function() {
     	$.ajax({
     		type: "POST",
     		async: true,
-    		contentType: "aplication/json",
+    		contentType: "application/json",
     		url: "http://localhost:8080/twitter/home",
     		data: JSON.stringify(formData),
     		dataType: 'json',
-    		succes: function(result){
-    			alert("SUCCES")
+    		success: function(result){
+    			location.reload();
     			console.log(result);
     			
     		},
     		failure: function(e){
-    			alert("Error")
+    			alert("Error");
     			console.log("Error: ", e);
     		}    		
     	});
@@ -45,6 +45,21 @@ $( document ).ready(function() {
 
             .replace("http://localhost:8080/twitter/search/" + user);
     	
+   
+    });
+    
+    $("#followBtn").click(function()  {
+		// Prevent the form from submitting via the browser.
+		event.preventDefault();
+    
+		var user = document
+
+        .getElementById('username').value;
+		 window.location
+
+         .replace("http://localhost:8080/twitter/friends/" + user);
+ 	
+
    
     });
     
